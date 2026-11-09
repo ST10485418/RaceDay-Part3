@@ -1,0 +1,123 @@
+﻿@model RaceDay.Mvc.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+                <!-- RaceDay Header -->
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h2 class="fw-bold mb-1">RaceDay</h2>
+                    <p class="mb-0">Welcome Back!</p>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <h4 class="text-center fw-bold mb-4">
+                        Login to Your Account
+                    </h4>
+
+                    <!-- Success Message -->
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <!-- Login Form -->
+                    <form asp-controller="Account"
+                          asp-action="Login"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <!-- Validation Errors -->
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3"
+                             role="alert">
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="mb-3">
+                            <label asp-for="Email"
+                                   class="form-label fw-semibold">
+                                Email Address
+                            </label>
+
+                            <input asp-for="Email"
+                                   type="email"
+                                   class="form-control form-control-lg"
+                                   placeholder="Enter your email"
+                                   autocomplete="username" />
+
+                            <span asp-validation-for="Email"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="Password"
+                                   class="form-label fw-semibold">
+                                Password
+                            </label>
+
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control form-control-lg"
+                                   placeholder="Enter your password"
+                                   autocomplete="current-password" />
+
+                            <span asp-validation-for="Password"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <!-- Login Button -->
+                        <div class="d-grid mt-4">
+                            <button type="submit"
+                                    class="btn btn-primary btn-lg fw-bold">
+                                Login
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <hr class="my-4" />
+
+                    <!-- Registration Link -->
+                    <div class="text-center">
+                        <p class="text-muted mb-0">
+                            New to RaceDay?
+                            <a asp-controller="Account"
+                               asp-action="Register"
+                               class="fw-bold text-decoration-none">
+                                Create an Account
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer text-center bg-light py-3">
+                    <small class="text-muted">
+                        RaceDay Event Management System
+                    </small>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

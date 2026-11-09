@@ -1,0 +1,106 @@
+﻿
+@model List<RaceDay.Mvc.Controllers.OrganiserResultModel>
+
+@{
+    ViewData["Title"] = "Event Results";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">RaceDay Event Results</h2>
+
+    <p class="text-muted">
+        View participant race results, finishing times,
+        and race positions.
+    </p>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <a href="/Organiser/Index"
+       class="btn btn-secondary mb-3">
+        Back to Dashboard
+    </a>
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            No race results are available yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-striped">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Result ID</th>
+                        <th>Enrolment ID</th>
+                        <th>Chip Time</th>
+                        <th>Gun Time</th>
+                        <th>Overall Position</th>
+                        <th>Category Position</th>
+                        <th>Completed</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var result in Model)
+                    {
+                        <tr>
+                            <td>@result.ResultID</td>
+
+                            <td>@result.EnrolmentID</td>
+
+                            <td>
+                                @(result.ChipTime.HasValue
+                                    ? result.ChipTime.Value.ToString()
+                                    : "-")
+                            </td>
+
+                            <td>
+                                @(result.GunTime.HasValue
+                                    ? result.GunTime.Value.ToString()
+                                    : "-")
+                            </td>
+
+                            <td>
+                                @(result.PositionOverall.HasValue
+                                    ? result.PositionOverall.Value.ToString()
+                                    : "-")
+                            </td>
+
+                            <td>
+                                @(result.PositionCategory.HasValue
+                                    ? result.PositionCategory.Value.ToString()
+                                    : "-")
+                            </td>
+
+                            <td>
+                                @(result.IsCompleted ? "Yes" : "No")
+                            </td>
+
+                            <td>
+                                @(string.IsNullOrWhiteSpace(result.Notes)
+                                    ? "-"
+                                    : result.Notes)
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+</div>

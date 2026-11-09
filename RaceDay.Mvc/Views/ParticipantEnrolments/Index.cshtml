@@ -1,0 +1,71 @@
+﻿@model List<RaceDay.Mvc.Controllers.ParticipantEnrolmentModel>
+
+@{
+    ViewData["Title"] = "My Enrolments";
+}
+
+<div class="container mt-4">
+    <h2>My Enrolments</h2>
+    <p>View and manage your RaceDay event enrolments.</p>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <a asp-controller="ParticipantEnrolments"
+       asp-action="Create"
+       class="btn btn-primary mb-3">
+        Enrol in an Event
+    </a>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Enrolment ID</th>
+                <th>Event Category ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.EnrolmentID</td>
+                    <td>@item.EventCategoryID</td>
+                    <td>@item.EnrolmentDate.ToString("dd MMM yyyy")</td>
+                    <td>@item.Status</td>
+                    <td>
+                        @if (item.Status != "Cancelled")
+                        {
+                            <form asp-action="Cancel"
+                                  asp-route-id="@item.EnrolmentID"
+                                  method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Cancel this enrolment?');">
+                                    Cancel
+                                </button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            You have no enrolments yet.
+        </div>
+    }
+</div>

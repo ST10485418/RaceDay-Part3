@@ -1,0 +1,62 @@
+﻿
+@model List<RaceDay.Mvc.Controllers.ParticipantEventCategoryModel>
+
+@{
+    ViewData["Title"] = "Enrol in an Event";
+}
+
+<div class="container mt-4">
+    <h2>Enrol in an Event</h2>
+    <p>Select an available event category.</p>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <a asp-action="Index" class="btn btn-secondary mb-3">
+        Back to My Enrolments
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Event ID</th>
+                <th>Category ID</th>
+                <th>Entry Fee</th>
+                <th>Maximum Entries</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(x => x.IsActive))
+            {
+                <tr>
+                    <td>@item.EventID</td>
+                    <td>@item.CategoryID</td>
+                    <td>R @item.EntryFee.ToString("0.00")</td>
+                    <td>@item.MaxEntries</td>
+                    <td>
+                        <form asp-action="Enrol" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden"
+                                   name="eventCategoryId"
+                                   value="@item.EventCategoryID" />
+                            <button type="submit"
+                                    class="btn btn-success btn-sm">
+                                Enrol Now
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any(x => x.IsActive))
+    {
+        <div class="alert alert-info">
+            No active event categories are available.
+        </div>
+    }
+</div>

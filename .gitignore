@@ -1,0 +1,10 @@
+.vs/
+**/bin/
+**/obj/
+**/TestResults/
+*.user
+*.suo
+**/appsettings.Development.json
+.env
+**/.env
+README.md.txt

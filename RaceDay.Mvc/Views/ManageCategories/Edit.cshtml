@@ -1,0 +1,49 @@
+﻿
+@model RaceDay.Mvc.Controllers.ManageCategoryModel
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="container mt-4">
+    <h2>Edit Category</h2>
+
+    <form asp-action="Edit"
+          asp-route-id="@Model.CategoryID"
+          method="post">
+        @Html.AntiForgeryToken()
+
+        <input asp-for="CategoryID" type="hidden" />
+
+        <div asp-validation-summary="All"
+             class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryName" class="form-label"></label>
+            <input asp-for="CategoryName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryType" class="form-label"></label>
+            <select asp-for="CategoryType" class="form-select">
+                <option value="Run">Run</option>
+                <option value="Walk">Walk</option>
+                <option value="Cycle">Cycle</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description"
+                      class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Update Category
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Cancel
+        </a>
+    </form>
+</div>

@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2>RaceDay Organiser Dashboard</h2>
+        <p class="text-muted">
+            Welcome! Manage your sporting events and
+            monitor RaceDay activities.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- MANAGE EVENTS -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title">Manage Events</h4>
+
+                    <p class="card-text">
+                        Create, view, update and delete
+                        RaceDay sporting events.
+                    </p>
+
+                    <a asp-controller="ManageEvents"
+                       asp-action="Index"
+                       class="btn btn-primary">
+                        Manage Events
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANAGE CATEGORIES -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title">Manage Categories</h4>
+
+                    <p class="card-text">
+                        Create, view, update and delete
+                        running, walking and cycling categories.
+                    </p>
+
+                    <a asp-controller="ManageCategories"
+                       asp-action="Index"
+                       class="btn btn-primary">
+                        Manage Categories
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW RESULTS -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title">View Results</h4>
+
+                    <p class="card-text">
+                        View race results and participant
+                        performance information.
+                    </p>
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            disabled>
+                        Coming Soon
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PUBLIC EVENTS -->
+    <div class="mt-4">
+        <a asp-controller="Events"
+           asp-action="Index"
+           class="btn btn-outline-primary">
+            View Public Events
+        </a>
+    </div>
+
+</div>
